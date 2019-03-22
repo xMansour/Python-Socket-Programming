@@ -1,10 +1,10 @@
 from socket import *
 from threading import *
 
-def clientThread(clientSocket):
+def clientThread(clientSocket, clientAddress):
     while True:
         message = clientSocket.recv(1024).decode("utf-8")
-        print(message)
+        print(clientAddress[0] + ":" + str(clientAddress[1]) +" says: "+ message)
 
     clientSocket.close()
 
@@ -21,6 +21,6 @@ print ("Waiting for connection...")
 
 while True:
     clientSocket, clientAddress = hostSocket.accept()
-    print ("Connection established with: ", clientAddress[0] +":"+ str(clientAddress[1]))
-    thread = Thread(target=clientThread, args=(clientSocket, ))
+    print ("Connection established with: ", clientAddress[0] + ":" + str(clientAddress[1]))
+    thread = Thread(target=clientThread, args=(clientSocket, clientAddress, ))
     thread.start()
