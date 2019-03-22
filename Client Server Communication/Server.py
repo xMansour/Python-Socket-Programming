@@ -6,10 +6,10 @@ try:
     hostIp = "127.0.0.1"
     portNumber = 7500
     hostSocket.bind((hostIp, portNumber))
-    hostSocket.listen(1)
+    hostSocket.listen()
     print ("Waiting for connection...")
-    clientSocket, clientIp = hostSocket.accept()
-    print ("Connection established with: ", clientIp[0])
+    clientSocket, clientAddress = hostSocket.accept()
+    print ("Connection established with: ", clientAddress[0])
     while True:
         clientMessage = clientSocket.recv(2048)
         print ("Client says: ", clientMessage.decode("utf-8"))
